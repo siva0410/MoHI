@@ -46,7 +46,7 @@ def callback():
 def handle_message(event):
 	line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='「' + event.message.text + event.message.text + event.message.text + '」100倍返しだaaa')
+        TextSendMessage(text='「' + event.message.text + event.message.text + event.message.text + '」100倍返しだaa')
      )
 
 if __name__ == "__main__":
