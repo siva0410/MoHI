@@ -46,7 +46,7 @@ def callback():
 def handle_message(event):
 	line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = + event.message.text + '？　そんなことより唐揚げ食べない？')
+        TextSendMessage(text = event.message.text + '？　そんなことより唐揚げ食べない？')
     )
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
