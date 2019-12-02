@@ -53,3 +53,5 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port)
 
 # sakuma watched
+# slack test
+# gitミスったら git reset （develop_sakuma）←＜ブランチ名＞ HEAD←＜コミットのハッシュ(直膳はHEAD)＞
