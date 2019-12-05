@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ドットインストール</title>
+  <!-- タイトルの説明 -->
+  <meta name="description" content="プログラミング学習サイトのドットインストールでした。">
+  <!-- ファビコンつける -->
+  <link rel="icon" href="favicon.ico">
+</head>
+
+<body>
+  <header>
+    <img src="img/logo.png" width="240" height="40" alt="ドットインストールのロゴです">
+    <ul>
+      <li><a href="#features">サイトの特徴</a></li>
+      <li><a href="#ranking">人気ランキング</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <h1>ドットインストール</h1>
+    <p>プログラミング学習サイトです？</p>
+    <section>
+      <h1 id="features">サイトの特徴</h1>
+      <p>こういう特徴があります。&lt;br&gt;タグについて説明します！</p>
+    </section>
+    <section>
+      <h1 id="ranking">人気ランキング</h1>
+      <p>今人気のレッスンはこちらです！</p>
+      <ol reversed start="10">
+        <li>HTML入門</li>
+        <li>CSS入門</li>
+        <li>JavaScript入門</li>
+      </ol>
+    </section>
+    <section>
+      <h1>レッスン一覧</h1>
+      <ul>
+        <li>HTML入門</li>
+        <ul>
+          <li>基礎文法</li>
+          <li>実例</li>
+        </ul>
+        <li>CSS入門</li>
+        <li>JavaScript入門</li>
+      </ul>
+  </section>
+    <p><a href="more_lessons.html">もっと見る？</a></p>
+  </section>
+
+  <section>
+    <h1>ブログだよ～</h1>
+    <article>
+      <h1>お知らせです！</h1>
+      <p>部員の誕生日‼</p>
+      <footer>
+        <p>投稿日 <time>2019-09-23</time></p>
+      </footer>
+    </article>
+    <article>
+      <h1>お知らせです！</h1>
+      <p>レーザーカッター買いました‼</p>
+      <footer>
+        <p>投稿日 <time>2019-10-30</time></p>
+      </footer>
+    </article>
+  </section>
+
+  <!-- <h2>沿革</h2>
+  <table>
+    <thead>
+      <tr><th>年</th><th>出来事</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2015</td><td>会社設立</td></tr>
+      <tr><td>2018</td><td>サイトリニューアル</td></tr>
+    </tbody>
+  </table> -->
+
+  <section>
+  <h2>お問い合わせ</h2>
+  <form>
+    <p>
+      <label for="name">氏名</label>
+      <input type="text" id="name" placeholder="本名を入れてください">
+    </p>
+    <p>
+      <label for="pwd">パスワード</label>
+      <input type="password" id="pwd">
+    </p>
+    <p>
+      <label for="product">対象商品</label>
+      <select id="product" size="3" multiple>
+        <option>productA</option>
+        <option>productB</option>
+        <option selected>productC</option>
+        <option>productD</option>
+        <option>productE</option>
+      </select>
+    </p>
+    <!-- <fieldset>
+      <legend>お使いのスマートフォン(複数選択可)</legend>
+        <input type="checkbox" id="iPhone" checked><label for="iPhone" >iPhone</label>
+        <input type="checkbox" id="Android"><label for="Android">Android</label>
+        <input type="checkbox" id="Others"><label for="Others">Others</label>
+      </fieldset> -->
+    <fieldset>
+      <legend>一番好きなスマートフォン</legend>
+        <input type="radio" name="phone" id="iPhone" checked><label for="iPhone" >iPhone</label>
+        <input type="radio" name="phone" id="Android"><label for="Android">Android</label>
+        <input type="radio" name="phone" id="Others"><label for="Others">Others</label>
+      </fieldset>
+    <p>
+      <label for="message">メッセージ</label>
+      <textarea type="message" placeholder="メッセージを入れてください"></textarea>
+    </p>
+    <!-- <p><button>送信</button></p> -->
+    <p><input type="submit" value="送信"></p>
+  </form>
+  </section>
+
+  <aside>
+    <h1>広告です！</h1>
+    <p>しょうもない広告の代わりにこちらのきれいな風景を堪能下さい</p>
+  </aside>
+
+  <footer>
+  <ul>
+    <li><a href="https://twitter.com/okarobo" target="_blank">Twitter</a></li>
+    <li><a href="mailto:okarobo" target="_blank">Gmail</a></li>
+  </ul>
+  
+</footer>
+  <!-- <h2>よくある質問</h2>
+  <dl>
+    <dt>質問1</dt>
+    <dd>回答1</dd>
+
+    <dt>質問2</dt>
+    <dd>回答2-1</dd>
+    <dd>回答2-2</dd>
+    
+    <dt>質問3-1</dt>
+    <dt>質問3-2</dt>
+    <dd>回答3</dd>
+  </dl> -->
+  <p>&copy; dotinstall.com</p>
+  <p><a href="#">TOPへ</a></p>
+</body>
+</html>
