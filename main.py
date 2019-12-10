@@ -44,17 +44,17 @@ def callback():
 # MessageEvent
 @handler.add(MessageEvent, message=TextMessage)
 if event.message.text == "hoge":
-def handle_message(event):
-	line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text = 'ほげほげ')
-    )
+    def handle_message(event):
+	    line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = 'ほげほげ')
+        )
 else:
-def handle_message(event):
-	line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text = event.message.text + '？　そんなことより唐揚げ食べない？')
-    )
+    def handle_message(event):
+	    line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = event.message.text + '？　そんなことより唐揚げ食べない？')
+        )
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
