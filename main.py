@@ -85,7 +85,8 @@ def get_response_message(mes_from,usr_id):
     if ":" in mes_from and flag_num == 1:
         mes_from = "2000/1/1 " + mes_from
         tar_time = datetime.datetime.strptime(mes_from,'%Y/%m/%d %H:%M')
-        mes= tar_time.hour + ':' + tar_time.minute + "に設定したよ！"
+        mes = "{}:{}に設定したよ！"
+        mes = mes.format(datetime.hour,datetime.minute)
 
         with get_connection() as conn:
             with conn.cursor() as cur:
