@@ -50,7 +50,7 @@ def get_response_message(mes_from):
         return mes
 
 # それ以外はオウム返し
-return mes_from
+    return mes_from
 
 
 @app.route("/callback", methods=['POST'])
