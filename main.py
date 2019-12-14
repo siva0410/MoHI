@@ -15,8 +15,6 @@ import os
 
 import psycopg2
 
-import re
-
 import datetime
 
 
@@ -48,7 +46,7 @@ def get_connection():
 def is_exist_usr(target):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            sql = "SELECT usr_id FROM usr_data4 WHERE usr_id ='{}'"
+            sql = "SELECT usr_id FROM usr_data5 WHERE usr_id ='{}'"
             sql = sql.format(target)
             cur.execute(sql)
                 
@@ -63,7 +61,7 @@ def get_response_message(mes_from,usr_id):
     # flagの取得
     with get_connection() as conn:
         with conn.cursor() as cur:
-            sql = "SELECT flag FROM usr_data4 WHERE usr_id = '{}'"
+            sql = "SELECT flag FROM usr_data5 WHERE usr_id = '{}'"
             sql = sql.format(usr_id)
             cur.execute(sql)
             (flag_num,) = cur.fetchone()
@@ -74,7 +72,7 @@ def get_response_message(mes_from,usr_id):
 
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "UPDATE usr_data4 SET flag = 1 WHERE usr_id = '{}'"
+                sql = "UPDATE usr_data5 SET flag = 1 WHERE usr_id = '{}'"
                 sql = sql.format(usr_id)
                 cur.execute(sql)
                 conn.commit()
@@ -90,14 +88,14 @@ def get_response_message(mes_from,usr_id):
 
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "UPDATE usr_data4 SET flag = 2 WHERE usr_id = '{}'"
+                sql = "UPDATE usr_data5 SET flag = 2 WHERE usr_id = '{}'"
                 sql = sql.format(usr_id)
                 cur.execute(sql)
                 conn.commit()
 
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "UPDATE usr_data4 SET target_time = {} WHERE usr_id = '{}'"
+                sql = "UPDATE usr_data5 SET target_time = {} WHERE usr_id = '{}'"
                 time = "{}:{}:{}"
                 time = time.format(tar_time.hour,tar_time.minute,tar_time.second)
                 sql = sql.format(time,usr_id)
@@ -112,7 +110,7 @@ def get_response_message(mes_from,usr_id):
 
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "UPDATE usr_data4 SET flag = 0 WHERE usr_id = '{}'"
+                sql = "UPDATE usr_data5 SET flag = 0 WHERE usr_id = '{}'"
                 sql = sql.format(usr_id)
                 cur.execute(sql)
                 conn.commit()
@@ -156,7 +154,7 @@ def handle_message(event):
     if not is_exist_usr(usr_id):
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "INSERT INTO usr_data4 (usr_id,usr_name,picture,flag) VALUES ('{}','{}','{}',{})"
+                sql = "INSERT INTO usr_data5 (usr_id,usr_name,picture,flag) VALUES ('{}','{}','{}',{})"
                 sql = sql.format(usr_id,usr_name,picture,flag)
                 cur.execute(sql)
                 conn.commit()
