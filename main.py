@@ -104,7 +104,7 @@ def handle_message(event):
     #if not is_exist_usr(usr_id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            sql = "insert into user_data(name) values({});"
+            sql = 'insert into user_data(name) values("{}");'
             sql = sql.format(name)
             cur.execute(sql)
             conn.commit()
