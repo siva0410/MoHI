@@ -80,7 +80,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     
-    name = line_bot_api.get_pofile(event.source.user_id).display_name
+    name = line_bot_api.get_profile(event.source.user_id).display_name
     
     line_bot_api.reply_message(
         event.reply_token,
