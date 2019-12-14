@@ -18,6 +18,10 @@ import psycopg2
 import time
 from datetime import datetime
 
+import json
+import base64
+
+
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
@@ -198,6 +202,19 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=response_message)
     )
+
+@handler.add(ThingsEvent)
+def handle_things_event(event):
+    if event.things.type != "scenarioResult":
+        return
+    if event.things.result.result_code != "success":
+        app.logger.warn("Error result: %s", event)
+        return
+
+    button_state = int.from_bytes(base64.b64decode(event.things.result.ble_notification_payload), 'little')
+    if button_state > 0:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Button is pressed!"))
+
     
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
