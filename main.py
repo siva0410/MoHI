@@ -99,12 +99,12 @@ def handle_message(event):
     picture=profile.picture_url
 
     #if not is_exist_usr(usr_id):
-        with get_connection() as conn:
-            with conn.cursor() as cur:
-                sql = "insert into user_data(usr_id,name,picture,flag) values({},{},{},{});"
-                sql = sql.format(usr_id,name,picture,flag)
-                cur.execute(sql)
-                conn.commit()
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            sql = "insert into user_data(usr_id,name,picture,flag) values({},{},{},{});"
+            sql = sql.format(usr_id,name,picture,flag)
+            cur.execute(sql)
+            conn.commit()
                 
     #get reply from recv messege
     responce_message=get_response_message(event.message.text)
