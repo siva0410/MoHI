@@ -25,36 +25,38 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-'''
+
 # DBコネクション取得関数
 def get_connection():
-    dsn = "host=ec2-107-21-255-181.compute-1.amazonaws.com port=5432 dbname=dduecrd1p23pgq user=grcmdjajgfsjex password=e9ace79c30017efd493887b9d8d9ed1ac0e3bc0eeca060cfed0271b99be2c9d7"
-    return psycopg2.connect(dsn)
-'''
-
-# 返事取得関数（今は暫定で日付返す関数）
-def get_response_message(mes_from):
     host="ec2-107-21-255-181.compute-1.amazonaws.com"
     port=5432
     dbname="dduecrd1p23pgq"
     user="grcmdjajgfsjex"
     password="e9ace79c30017efd493887b9d8d9ed1ac0e3bc0eeca060cfed0271b99be2c9d7"
+    conText = "host={} port={} dbname={} user={} password={}"
+    conText = conText.format(host,port,dbname,user,password)
+    return psycopg2.connect(conText)
+
+
+# 返事取得関数（今は暫定で日付返す関数）
+def get_response_message(mes_from):
+
     # "日付"が入力された時だけDBアクセス
     if mes_from=="日付":
-        conText = "host={} port={} dbname={} user={} password={}"
-        conText = conText.format(host,port,dbname,user,password)
-        connection = psycopg2.connect(conText)
-        cur = connection.cursor()
-        sqlStr = "SELECT TO_CHAR(CURRENT_DATE, 'yyyy/mm/dd');"
-        cur.execute(sqlStr)
-        (mes,) = cur.fetchone()
-        return mes
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql1 = "SELECT TO_CHAR(CURRENT_DATE, 'yyyy/mm/dd');"
+                cur.execute(sql1)
+                (mes,) = cur.fetchone()
+                return mes
 
     # それ以外はオウム返し
-    sql = "insert into test(name,nedan) values('リンゴ',100);"
-    cur.execute(sql)
-    connection.commit()
-    return mes_from
+    with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql2 = "insert into test(name,nedan) values('リンゴ',100);"
+                cur.execute(sql2)
+                connection.commit()
+                return mes_from
 
 
 @app.route("/callback", methods=['POST'])
