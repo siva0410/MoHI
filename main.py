@@ -54,7 +54,7 @@ def is_exist_usr(target):
 def get_response_message(mes_from):
 
     # "寝る"が入力された時
-    if mes_from=="寝る" or "ねる":
+    if mes_from == "寝る" or mes_from == "ねる":
         mes="明日何時に起きる？(例:8時,14時30分)"
         return mes
             
