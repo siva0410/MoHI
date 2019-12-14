@@ -83,9 +83,9 @@ def get_response_message(mes_from,usr_id):
             
     # "時間"が入力された時
     if ":" in mes_from and flag_num == 1:
-        tar_time = datetime.time.strptime(mes_from,'%H:%M')
-
-        mes= tar_time + "に設定したよ！"
+        mes_from = datetime.date.now() + " " + mes_from
+        tar_time = datetime.datetime.strptime(mes_from,'%Y/%m/%d %H:%M')
+        mes= tar_time.hour + ':' + tar_time.minute + "に設定したよ！"
 
         with get_connection() as conn:
             with conn.cursor() as cur:
