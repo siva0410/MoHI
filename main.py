@@ -55,7 +55,7 @@ def get_response_message(mes_from):
             with conn.cursor() as cur:
                 sql2 = "insert into test(name,nedan) values('リンゴ',100);"
                 cur.execute(sql2)
-                connection.commit()
+                conn.commit()
                 return mes_from
 
 
