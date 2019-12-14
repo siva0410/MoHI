@@ -1,5 +1,6 @@
 # インポートするライブラリ
-from flask import Flask, request, abort, psycopg2
+from flask import Flask, request, abort
+import psycopg2
 
 from linebot import (
     LineBotApi, WebhookHandler
