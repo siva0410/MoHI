@@ -94,13 +94,13 @@ def callback():
 def handle_message(event):
     # flag
     flag=0
-    
+    '''
     #regist profile into DB
     profile=line_bot_api.get_profile(event.source.user_id)
     name = profile.display_name
     usr_id=profile.user_id
     picture=profile.picture_url
-
+    
     #if not is_exist_usr(usr_id):
     with get_connection() as conn:
         with conn.cursor() as cur:
@@ -108,12 +108,12 @@ def handle_message(event):
             sql = sql.format(usr_id,name,picture,flag)
             cur.execute(sql)
             conn.commit()
-             
+    '''         
     #get reply from recv messege
-    responce_message=get_response_message(event.message.text)
+    response_message=get_response_message(event.message.text)
     
     '''
-    if responce_message in "設定":
+    if response_message in "設定":
         regex = re.compile('\d+')
         match = [0,0]
         match = regex.findall(mes_from)
@@ -121,7 +121,7 @@ def handle_message(event):
     #send reply messeges    
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=responce_message)
+        TextSendMessage(text=response_message)
     )
     
 if __name__ == "__main__":
