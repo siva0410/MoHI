@@ -1,6 +1,9 @@
 # インポートするライブラリ
 from flask import Flask, request, abort
 
+import json
+import base64
+
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -8,7 +11,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction, EventThings, ScenarioResult
+    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction, ThingsEvent, ScenarioResult,
 )
 
 import os
@@ -17,11 +20,6 @@ import psycopg2
 
 import time
 from datetime import datetime
-
-import json
-import base64
-
-
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
