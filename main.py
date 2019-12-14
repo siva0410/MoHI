@@ -14,7 +14,7 @@ import os
 
 # DBコネクション取得関数
 def get_connection():
-    dsn = "host=＜Host＞ port=5432 dbname=＜Database＞ user=＜User＞ password=＜Password＞"
+    dsn = "host=ec2-107-21-255-181.compute-1.amazonaws.com port=5432 dbname=dduecrd1p23pgq user=grcmdjajgfsjex password=e9ace79c30017efd493887b9d8d9ed1ac0e3bc0eeca060cfed0271b99be2c9d7"
     return psycopg2.connect(dsn)
 
 # 返事取得関数（今は暫定で日付返す関数）
