@@ -34,7 +34,7 @@ def get_connection():
 
 # 返事取得関数（今は暫定で日付返す関数）
 def get_response_message(mes_from):
-    host="ec2-107-21-255-181.compute-1.amazonaws.com 2"
+    host="ec2-107-21-255-181.compute-1.amazonaws.com"
     port=5432
     dbname="dduecrd1p23pgq"
     user="grcmdjajgfsjex"
