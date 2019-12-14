@@ -1,7 +1,7 @@
-CREATE TABLE user_data
+CREATE TABLE usr_data
 (
 usr_id	TEXT	NOT NULL,
-name	TEXT	NOT NULL,
+usr_name	TEXT	NOT NULL,
 picture	TEXT,
 target_time	INTEGER,
 hello_time	INTEGER,
