@@ -12,6 +12,18 @@ from linebot.models import (
 )
 import os
 
+# 軽量なウェブアプリケーションフレームワーク:Flask
+app = Flask(__name__)
+
+
+#環境変数からLINE Access Tokenを設定
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+#環境変数からLINE Channel Secretを設定
+LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
+
 # DBコネクション取得関数
 def get_connection():
     dsn = "host=ec2-107-21-255-181.compute-1.amazonaws.com port=5432 dbname=dduecrd1p23pgq user=grcmdjajgfsjex password=e9ace79c30017efd493887b9d8d9ed1ac0e3bc0eeca060cfed0271b99be2c9d7"
@@ -35,17 +47,6 @@ def get_response_message(mes_from):
     # それ以外はオウム返し
     return mes_from
 
-# 軽量なウェブアプリケーションフレームワーク:Flask
-app = Flask(__name__)
-
-
-#環境変数からLINE Access Tokenを設定
-LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-#環境変数からLINE Channel Secretを設定
-LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
-
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 @app.route("/callback", methods=['POST'])
 def callback():
