@@ -94,13 +94,13 @@ def callback():
 def handle_message(event):
     # flag
     flag=0
-    '''
+    
     #regist profile into DB
     profile=line_bot_api.get_profile(event.source.user_id)
     name = profile.display_name
     usr_id=profile.user_id
     picture=profile.picture_url
-    
+    '''
     #if not is_exist_usr(usr_id):
     with get_connection() as conn:
         with conn.cursor() as cur:
