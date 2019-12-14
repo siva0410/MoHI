@@ -83,10 +83,7 @@ def get_response_message(mes_from,usr_id):
             
     # "時間"が入力された時
     if ":" in mes_from and flag_num == 1:
-
-        regex = re.compile('\d+')
-        tapple = regex.findall(mes_from)
-        tar_time = datetime.time(tapple[0],tapple[1])
+        tar_time = datetime.time.strptime(mes_from,'%H:%M')
 
         mes= tar_time + "に設定したよ！"
 
