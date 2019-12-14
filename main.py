@@ -104,6 +104,31 @@ def get_response_message(mes_from,usr_id):
         
         return mes
 
+    # "おはよう"が入力された時
+    if "おはよ" in mes_from and flag_num == 2:
+        mes_from
+        hel_time = mes_from.timestamp
+        mes = "おはようございます！\n 現在の時刻は{}時{}分{}秒です！"
+        mes = mes.format(hel_time.hour,hel_time.minute,hel_time.second)
+
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "UPDATE usr_data5 SET flag = 3 WHERE usr_id = '{}'"
+                sql = sql.format(usr_id)
+                cur.execute(sql)
+                conn.commit()
+
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "UPDATE usr_data5 SET hello_time = '{}' WHERE usr_id = '{}'"
+                time = "{}:{}:{}"
+                time = time.format(hel_time.hour,hel_time.minute,hel_time.second)
+                sql = sql.format(time,usr_id)
+                cur.execute(sql)
+                conn.commit()
+        
+        return mes
+
     # "リセット"が入力された時
     if mes_from == "リセット":
         mes="リセットしました！"
@@ -114,7 +139,13 @@ def get_response_message(mes_from,usr_id):
                 sql = sql.format(usr_id)
                 cur.execute(sql)
                 conn.commit()
-                
+
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "UPDATE usr_data5 SET target_time = '' WHERE usr_id = '{}'"
+                sql = sql.format(time,usr_id)
+                cur.execute(sql)
+                conn.commit()
         return mes
                 
     # それ以外
