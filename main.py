@@ -86,7 +86,7 @@ def get_response_message(mes_from,usr_id):
         mes_from = "2000/1/1 " + mes_from
         tar_time = datetime.datetime.strptime(mes_from,'%Y/%m/%d %H:%M')
         mes = "{}:{}に設定したよ！"
-        mes = mes.format(datetime.hour,datetime.minute)
+        mes = mes.format(tar_time.hour,tar_time.minute)
 
         with get_connection() as conn:
             with conn.cursor() as cur:
