@@ -45,7 +45,7 @@ def get_connection():
 def is_exist_usr(target):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            sql = 'SELECT usr_id FROM user_data WHERE usr_id ="' + target + '"'
+            sql = "SELECT usr_id FROM usr_data2 WHERE usr_id ='" + target + "'"
             cur = conn.execute(sql)
                 
     if len(cur.fetchall()):
