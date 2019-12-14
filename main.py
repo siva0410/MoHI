@@ -17,6 +17,9 @@ import psycopg2
 
 import re
 
+import datetime
+
+
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
 
