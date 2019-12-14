@@ -15,7 +15,8 @@ import os
 
 import psycopg2
 
-import datetime
+import time
+from datetime import datetime
 
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
