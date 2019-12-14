@@ -56,10 +56,11 @@ def get_response_message(mes_from):
     # "寝る"が入力された時
     if mes_from == "寝る" or mes_from == "ねる":
         mes="明日何時に起きる？(例:8時,14時30分)"
+        
         return mes
             
     # "時間"が入力された時
-    if mes_from in "時":
+    if "時" in mes_from:
         mes=mes_from + "に設定したよ！"
         return mes
                 
@@ -88,7 +89,9 @@ def callback():
 # MessageEvent
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-
+    # flag
+    flag=0
+    
     #regist profile into DB
     profile=line_bot_api.get_profile(event.source.user_id)
     name = profile.display_name
@@ -97,9 +100,9 @@ def handle_message(event):
     with get_connection() as conn:
             with conn.cursor() as cur:
                 if not is_exist_usr:
-                    sql = "insert into user_data(usr_id,name,picture) values({},{},{});"
-                    sql=sql1.format(usr_id,name,picture)
-                    cur.execute(sql1)
+                    sql = "insert into user_data(usr_id,name,picture,flag) values({},{},{},{});"
+                    sql=sql1.format(usr_id,name,picture,flag)
+                    cur.execute(sql)
                     conn.commit()
 
     #get reply from recv messege
