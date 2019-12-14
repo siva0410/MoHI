@@ -12,7 +12,7 @@ from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction
 )
 import os
-import re
+#import re
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
@@ -105,14 +105,14 @@ def handle_message(event):
             sql = sql.format(usr_id,name,picture,flag)
             cur.execute(sql)
             conn.commit()
-                
+        '''        
     #get reply from recv messege
     responce_message=get_response_message(event.message.text)
     if responce_message in "設定":
         regex = re.compile('\d+')
         match = [0,0]
         match = regex.findall(mes_from)
-        
+        '''
     #send reply messeges    
     line_bot_api.reply_message(
         event.reply_token,
