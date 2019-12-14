@@ -1,10 +1,11 @@
-CREATE TABLE usr_data2
+CREATE TABLE usr_data3
 (
 usr_id		TEXT,
 usr_name	TEXT,
 picture		TEXT,
-target_time	INTEGER,
-hello_time	INTEGER,
+target_time	DATE,
+hello_time	DATE,
 rate		INTEGER,
-quize		INTEGER
+quize		INTEGER,
+flag		INTEGER
 );
