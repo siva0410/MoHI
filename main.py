@@ -85,8 +85,8 @@ def get_response_message(mes_from,usr_id):
     if ":" in mes_from and flag_num == 1:
 
         regex = re.compile('\d+')
-        tar_time = time(0,0)
-        tar_time = regex.findall(mes_from)
+        tapple = regex.findall(mes_from)
+        tar_time = datetime.time(tapple[0],tapple[1])
 
         mes= tar_time + "に設定したよ！"
 
@@ -98,10 +98,22 @@ def get_response_message(mes_from,usr_id):
                 conn.commit()
         
         return mes
-    
+
+    # "リセット"が入力された時
+    if mes_from == "リセット":
+        mes="リセットしました！"
+
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "UPDATE usr_data2 SET flag = 0 WHERE usr_id = '{}'"
+                sql = sql.format(usr_id)
+                cur.execute(sql)
+                conn.commit()
+                
+        return mes
                 
     # それ以外
-    mes = "もう一度入力してみて"
+    mes = "もう一度入力してみて\n 候補:「ねる」「リセット」"
     return mes
 
 
