@@ -55,18 +55,41 @@ def is_exist_usr(target):
                 return False
 
 # 返事取得関数
-def get_response_message(mes_from):
+def get_response_message(mes_from,usr_id):
+
+    # flagの取得
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            sql = "SELECT flag FROM usr_data2 WHERE usr_id = '{}'"
+            sql = sql.format(usr_id)
+            cur.execute(sql)
+            (flag_num,) = cur.fetchone()
 
     # "寝る"が入力された時
-    if mes_from == "寝る" or mes_from == "ねる":
+    if mes_from == "寝る" or mes_from == "ねる" and flag_num == 0:
         mes="明日何時に起きる？(例:8時,14時30分)"
-        
+
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "UPDATE usr_data2 SET flag = 1 WHERE usr_id = '{}'"
+                sql = sql.format(usr_id)
+                cur.execute(sql)
+                conn.commit()
+                
         return mes
             
     # "時間"が入力された時
-    if "時" in mes_from:
+    if "時" in mes_from and flag_num == 1:
         mes=mes_from + "に設定したよ！"
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "UPDATE usr_data2 SET flag = 2 WHERE usr_id = '{}'"
+                sql = sql.format(usr_id)
+                cur.execute(sql)
+                conn.commit()
+        
         return mes
+    
                 
     # それ以外
     mes = "もう一度入力してみて"
@@ -111,7 +134,7 @@ def handle_message(event):
                 conn.commit()
     
     #get reply from recv messege
-    response_message=get_response_message(event.message.text)
+    response_message=get_response_message(event.message.text,usr_id)
     
     '''
     if response_message in "設定":
