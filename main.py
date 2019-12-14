@@ -1,6 +1,5 @@
 # インポートするライブラリ
 from flask import Flask, request, abort
-import psycopg2
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -11,7 +10,11 @@ from linebot.exceptions import (
 from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction
 )
+
 import os
+
+import psycopg2
+
 #import re
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
