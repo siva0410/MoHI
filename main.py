@@ -15,7 +15,7 @@ import os
 
 import psycopg2
 
-#import re
+import re
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
@@ -66,8 +66,8 @@ def get_response_message(mes_from,usr_id):
             (flag_num,) = cur.fetchone()
 
     # "寝る"が入力された時
-    if mes_from == "寝る" or mes_from == "ねる" and flag_num == 0:
-        mes="明日何時に起きる？(例:8時,14時30分)"
+    if mes_from == "寝る" or mes_from == "ねる":
+        mes="明日何時に起きる？(入力例:8:00,14:30)"
 
         with get_connection() as conn:
             with conn.cursor() as cur:
@@ -79,8 +79,14 @@ def get_response_message(mes_from,usr_id):
         return mes
             
     # "時間"が入力された時
-    if "時" in mes_from and flag_num == 1:
-        mes=mes_from + "に設定したよ！"
+    if ":" in mes_from and flag_num == 1:
+
+        regex = re.compile('\d+')
+        tar_time = time(0,0)
+        tar_time = regex.findall(mes_from)
+
+        mes= tar_time + "に設定したよ！"
+
         with get_connection() as conn:
             with conn.cursor() as cur:
                 sql = "UPDATE usr_data2 SET flag = 2 WHERE usr_id = '{}'"
@@ -136,12 +142,6 @@ def handle_message(event):
     #get reply from recv messege
     response_message=get_response_message(event.message.text,usr_id)
     
-    '''
-    if response_message in "設定":
-        regex = re.compile('\d+')
-        match = [0,0]
-        match = regex.findall(mes_from)
-    '''
     #send reply messeges    
     line_bot_api.reply_message(
         event.reply_token,
