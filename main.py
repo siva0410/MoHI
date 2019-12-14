@@ -49,10 +49,10 @@ def is_exist_usr(target):
             sql = sql.format(target)
             cur.execute(sql)
                 
-    if len(cur.fetchall()):
-        return True
-    else:
-        return False
+            if len(cur.fetchall()):
+                return True
+            else:
+                return False
 
 # 返事取得関数
 def get_response_message(mes_from):
