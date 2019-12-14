@@ -41,9 +41,9 @@ def get_connection():
 # usr_id の値をチェックする
 def is_exist_usr(target):
     with get_connection() as conn:
-            with conn.cursor() as cur:
-                sql = 'SELECT usr_id FROM user_data WHERE usr_id ="' + target + '"'
-                cur = conn.execute(sql)
+        with conn.cursor() as cur:
+            sql = 'SELECT usr_id FROM user_data WHERE usr_id ="' + target + '"'
+            cur = conn.execute(sql)
                 
     if len(cur.fetchall()):
         return True
