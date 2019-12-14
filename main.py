@@ -12,6 +12,7 @@ from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction
 )
 import os
+import re
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
@@ -37,26 +38,34 @@ def get_connection():
     conText = conText.format(host,port,dbname,user,password)
     return psycopg2.connect(conText)
 
-
-# 返事取得関数（今は暫定で日付返す関数）
-def get_response_message(mes_from):
-
-    # "日付"が入力された時だけDBアクセス
-    if mes_from=="日付":
-        with get_connection() as conn:
-            with conn.cursor() as cur:
-                sql1 = "SELECT TO_CHAR(CURRENT_DATE, 'yyyy/mm/dd');"
-                cur.execute(sql1)
-                (mes,) = cur.fetchone()
-                return mes
-
-    # それ以外はオウム返し
+# usr_id の値をチェックする
+def is_exist_usr(target):
     with get_connection() as conn:
             with conn.cursor() as cur:
-                sql2 = "insert into test(name,nedan) values('リンゴ',100);"
-                cur.execute(sql2)
-                conn.commit()
-                return mes_from
+                sql = 'SELECT usr_id FROM user_data WHERE usr_id ="' + target + '"'
+                cur = conn.execute(sql)
+                
+    if len(cur.fetchall()):
+        return True
+    else:
+        return False
+
+# 返事取得関数
+def get_response_message(mes_from):
+
+    # "寝る"が入力された時
+    if mes_from=="寝る" or "ねる":
+        mes="明日何時に起きる？(例:8時,14時30分)"
+        return mes
+            
+    # "時間"が入力された時
+    if mes_from in "時":
+        mes=mes_from + "に設定したよ！"
+        return mes
+                
+    # それ以外
+    mes = "もう一度入力してみて"
+    return mes
 
 
 @app.route("/callback", methods=['POST'])
@@ -79,12 +88,31 @@ def callback():
 # MessageEvent
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    
-    name = line_bot_api.get_profile(event.source.user_id).display_name
-    
+
+    #regist profile into DB
+    profile=line_bot_api.get_profile(event.source.user_id)
+    name = profile.display_name
+    usr_id=profile.user_id
+    picture=profile.picture_url
+    with get_connection() as conn:
+            with conn.cursor() as cur:
+                if(!(is_exist_usr)):
+                    sql = "insert into user_data(usr_id,name,picture) values({},{},{});"
+                    sql=sql1.format(usr_id,name,picture)
+                    cur.execute(sql1)
+                    conn.commit()
+
+    #get reply from recv messege
+    responce_message=get_response_message(event.message.text)
+    if responce_message in "設定":
+        regex = re.compile('\d+')
+        match = [0,0]
+        match = regex.findall(mes_from)
+        
+    #send reply messeges    
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=name + "「" + get_response_message(event.message.text) + "」")
+        TextSendMessage(text=responce_message)
     )
     
 if __name__ == "__main__":
