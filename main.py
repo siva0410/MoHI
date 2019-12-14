@@ -47,7 +47,7 @@ def is_exist_usr(target):
         with conn.cursor() as cur:
             sql = "SELECT usr_id FROM usr_data2 WHERE usr_id ='{}'"
             sql = sql.format(target)
-            cur = conn.execute(sql)
+            cur.execute(sql)
                 
     if len(cur.fetchall()):
         return True
