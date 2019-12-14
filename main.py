@@ -79,11 +79,15 @@ def callback():
 # MessageEvent
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-	line_bot_api.reply_message(
+    
+    name = line_bot_api.get_pofile(event.source.user_id).display_name
+    
+    line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=get_response_message(event.message.text))
-     )
-
+        TextSendMessage(text=name + "「" + get_response_message(event.message.text) + "」")
+    )
+    
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
+    
