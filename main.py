@@ -1,5 +1,5 @@
 # インポートするライブラリ
-from flask import Flask, request, abort
+from flask import Flask, request, abort, psycopg2
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -11,6 +11,29 @@ from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction
 )
 import os
+
+# DBコネクション取得関数
+def get_connection():
+    dsn = "host=＜Host＞ port=5432 dbname=＜Database＞ user=＜User＞ password=＜Password＞"
+    return psycopg2.connect(dsn)
+
+# 返事取得関数（今は暫定で日付返す関数）
+def get_response_message(mes_from):
+    # "日付"が入力された時だけDBアクセス
+    if mes_from=="日付":
+        with get_connection() as conn:
+            with conn.cursor(name="cs") as cur:
+                try:
+                    sqlStr = "SELECT TO_CHAR(CURRENT_DATE, 'yyyy/mm/dd');"
+                    cur.execute(sqlStr)
+                    (mes,) = cur.fetchone()
+                    return mes
+                except:
+                    mes = "exception"
+                    return mes
+
+    # それ以外はオウム返し
+    return mes_from
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
@@ -46,7 +69,7 @@ def callback():
 def handle_message(event):
 	line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='「' + event.message.text + event.message.text + event.message.text + '」100倍返しだaa')
+        TextSendMessage(text=get_response_message(event.message.text))
      )
 
 if __name__ == "__main__":
