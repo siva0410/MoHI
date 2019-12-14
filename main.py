@@ -50,7 +50,10 @@ def get_response_message(mes_from):
         (mes,) = cur.fetchone()
         return mes
 
-# それ以外はオウム返し
+    # それ以外はオウム返し
+    sql = "insert into test(name,nedan) values('リンゴ',100);"
+    cur.execute(sql)
+    connection.commit()
     return mes_from
 
 
