@@ -1,6 +1,6 @@
 # インポートするライブラリ
-from flask import Flask, request, abort
-
+#from flask import Flask, request, abort
+from flask import Flask, request, from flask import Flask, request, abort
 import json
 import base64
 
