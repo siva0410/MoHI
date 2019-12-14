@@ -96,7 +96,7 @@ def handle_message(event):
     picture=profile.picture_url
     with get_connection() as conn:
             with conn.cursor() as cur:
-                if(!(is_exist_usr)):
+                if !(is_exist_usr):
                     sql = "insert into user_data(usr_id,name,picture) values({},{},{});"
                     sql=sql1.format(usr_id,name,picture)
                     cur.execute(sql1)
