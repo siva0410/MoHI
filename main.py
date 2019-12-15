@@ -150,7 +150,7 @@ def get_response_message(mes_from,usr_id):
         return mes
 
     if mes_from == "ランキング":
-        mes="現在のランキングです"
+        mes="現在のランキングです!!\n"
         with get_connection() as conn:
             with conn.cursor() as cur:
                 sql = "SELECT usr_name FROM usr_data5 ORDER BY rate ASC"
@@ -161,7 +161,7 @@ def get_response_message(mes_from,usr_id):
                 for (row,) in rows:
                     mes+=row
                 
-    return mes
+        return mes
                          
     # それ以外
     if flag_num == 0:
@@ -205,7 +205,7 @@ def handle_message(event):
     if not is_exist_usr(usr_id):
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "INSERT INTO usr_data5 (usr_id,usr_name,picture,flag) VALUES ('{}','{}','{}',{})"
+                sql = "INSERT INTO usr_data5 (usr_id,usr_name,picture,flag) VALUES ('{}','{}\n','{}',{})"
                 sql = sql.format(usr_id,usr_name,picture,flag)
                 cur.execute(sql)
                 conn.commit()
