@@ -158,7 +158,7 @@ def get_response_message(mes_from,usr_id):
                 conn.commit()
                 rows = cur.fetchall()
 
-    return '\n'.join(rows)
+    return rows
                          
     # それ以外
     if flag_num == 0:
