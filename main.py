@@ -17,8 +17,7 @@ import os
 
 import psycopg2
 
-import time
-from datetime import datetime
+import datetime
 
 # 軽量なウェブアプリケーションフレームワーク:Flask
 app = Flask(__name__)
