@@ -156,14 +156,14 @@ def get_response_message(mes_from,usr_id):
                 sql = "SELECT usr_name FROM usr_data5 ORDER BY rate ASC"
                 cur.execute(sql)
                 conn.commit()
-                i=0
+                i=1
                 '''
                 for row in cur:
                     i=i+1
                     mesrow = str(i) + ' ' + row + '\n'
                     mesrow += mesrow
                 '''
-                mes=(str(i++)+'\n').join(cur)
+                mes= '\n'.join(cur)
     return mes
                          
     # それ以外
