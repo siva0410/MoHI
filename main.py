@@ -98,7 +98,7 @@ def get_response_message(mes_from,usr_id):
             with conn.cursor() as cur:
                 sql = "UPDATE usr_data5 SET target_time = '{}' WHERE usr_id = '{}'"
                 time = "{}:{}:{}"
-                time = time.format(tar_time.hour,tar_time.minute,tar_time.second)
+                time = time.format(tar_time.minute,0,0)
                 sql = sql.format(time,usr_id)
                 cur.execute(sql)
                 conn.commit()
