@@ -10,7 +10,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction, ThingsEvent, ScenarioResult,
+    FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction,
 )
 
 import os
@@ -108,7 +108,7 @@ def get_response_message(mes_from,usr_id):
 
     # "おはよう"が入力された時
     if "おはよ" in mes_from and flag_num == 2:
-        hel_time = datetime.fromtimestamp(event.timestamp/1000.0)
+        hel_time = datetime.datetime.now()
         mes = "おはようございます！\n 現在の時刻は{}時{}分{}秒です！"
         mes = mes.format(hel_time.hour,hel_time.minute,hel_time.second)
 
@@ -200,6 +200,7 @@ def handle_message(event):
         TextSendMessage(text=response_message)
     )
 
+'''
 @handler.add(ThingsEvent)
 def handle_things_event(event):
     if event.things.type != "scenarioResult":
@@ -212,6 +213,7 @@ def handle_things_event(event):
     if button_state > 0:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Button is pressed!"))
 
+'''
     
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
