@@ -109,7 +109,7 @@ def get_response_message(mes_from,usr_id):
     if "おはよ" in mes_from and flag_num == 2:
         hel_time = datetime.datetime.now()
         mes = "おはようございます！\n 現在の時刻は{}時{}分{}秒です！"
-        mes = mes.format(hel_time.time.hour,hel_time.time.minute,hel_time.time.second)
+        mes = mes.format(hel_time.hour,hel_time.minute,hel_time.second)
 
         with get_connection() as conn:
             with conn.cursor() as cur:
