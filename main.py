@@ -157,9 +157,11 @@ def get_response_message(mes_from,usr_id):
                 cur.execute(sql)
                 conn.commit()
                 rows = cur.fetchall()
+                '''
                 for (row,) in rows:
                     mes+=row
-    return row
+                '''
+    return '\n'.join(rows)
                          
     # それ以外
     if flag_num == 0:
