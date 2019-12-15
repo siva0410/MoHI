@@ -153,14 +153,14 @@ def get_response_message(mes_from,usr_id):
         mes="現在のランキングです!!\n"
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "SELECT usr_name FROM usr_data5 ORDER BY rate ASC"
+                sql = "SELECT usr_name, rate FROM usr_data5 ORDER BY rate ASC"
                 cur.execute(sql)
                 conn.commit()
                 rows = cur.fetchall()
                 i=0
-                for (row,) in rows:
+                for (row,rate,) in rows:
                     i=i+1
-                    mes1=str(i)+' : '+row+'\n'
+                    mes1='\n' + str(i)+' : '+row+' ' +rate
                     mes+=mes1
                 
         return mes
