@@ -32,38 +32,6 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-class ThingsEvent(Event):
-    """Webhook ThingsEvent.
-    https://developers.line.biz/en/reference/messaging-api/#device-link-event
-    https://developers.line.biz/en/reference/messaging-api/#device-unlink-event
-    https://developers.line.biz/en/reference/messaging-api/#scenario-result-event
-    Event sent from LINE Things Webhook service.
-    """
-
-    def __init__(self, timestamp=None, source=None, reply_token=None, things=None, **kwargs):
-        """__init__ method.
-        :param source: Source object
-        :type source: T <= :py:class:`linebot.models.sources.Source`
-        :param str reply_token: Reply token
-        :param things: Things object
-        :type things: T <= :py:class:`linebot.models.things.Things`
-        :param kwargs:
-        """
-        super(ThingsEvent, self).__init__(
-            timestamp=timestamp, source=source, **kwargs
-        )
-
-        self.type = 'things'
-        self.reply_token = reply_token
-        self.things = self.get_or_new_from_json_dict_with_types(
-            things, {
-                'link': DeviceLink,
-                'unlink': DeviceUnlink,
-                'scenarioResult': ScenarioResult,
-            }
-        )
-
-
 # DBコネクション取得関数
 def get_connection():
     host="ec2-107-21-255-181.compute-1.amazonaws.com"
