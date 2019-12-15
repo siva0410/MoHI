@@ -160,8 +160,8 @@ def get_response_message(mes_from,usr_id):
                 i=0
                 for (row,) in rows:
                     i=i+1
-                    mes=str(i)+' : '+row+'\n'
-                    mes+=mes
+                    mes1=str(i)+' : '+row+'\n'
+                    mes+=mes1
                 
         return mes
                          
