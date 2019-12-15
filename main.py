@@ -159,9 +159,8 @@ def get_response_message(mes_from,usr_id):
                 i=0
                 for row in cur:
                     i=i+1
-                    mesrow+=[i,row]
-    mes = join(mesrow)
-    return mes
+                    mesrow+= i + row + '\n'
+    return mesrow
                          
     # それ以外
     if flag_num == 0:
