@@ -107,7 +107,7 @@ def get_response_message(mes_from,usr_id):
 
     # "おはよう"が入力された時
     if "おはよ" in mes_from and flag_num == 2:
-        hel_time = datetime.datetime.now()
+        hel_time = datetime.time.now()
         mes = "おはようございます！\n 現在の時刻は{}時{}分{}秒です！"
         mes = mes.format(hel_time.hour,hel_time.minute,hel_time.second)
 
