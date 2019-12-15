@@ -157,13 +157,11 @@ def get_response_message(mes_from,usr_id):
                 cur.execute(sql)
                 conn.commit()
                 i=1
-                '''
+                
                 for row in cur:
                     i=i+1
                     mesrow = str(i) + ' ' + row + '\n'
-                    mesrow += mesrow
-                '''
-                mes= '\n'.join(cur)
+                   
     return mes
                          
     # それ以外
