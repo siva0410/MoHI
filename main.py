@@ -157,9 +157,11 @@ def get_response_message(mes_from,usr_id):
                 cur.execute(sql)
                 conn.commit()
                 rows = cur.fetchall()
-                
+                i=0
                 for (row,) in rows:
-                    mes+=row
+                    i=i+1
+                    mes=str(i)+' : '+row+'\n'
+                    mes+=mes
                 
         return mes
                          
@@ -205,7 +207,7 @@ def handle_message(event):
     if not is_exist_usr(usr_id):
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "INSERT INTO usr_data5 (usr_id,usr_name,picture,flag) VALUES ('{}','{}\n','{}',{})"
+                sql = "INSERT INTO usr_data5 (usr_id,usr_name,picture,flag) VALUES ('{}','{}','{}',{})"
                 sql = sql.format(usr_id,usr_name,picture,flag)
                 cur.execute(sql)
                 conn.commit()
