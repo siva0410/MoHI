@@ -157,7 +157,7 @@ def get_response_message(mes_from,usr_id):
                 cur.execute(sql)
                 conn.commit()
                 rows = cur.fetchall()
-                for row in rows:
+                for (row,) in rows:
                     mes+=row
     return row
                          
