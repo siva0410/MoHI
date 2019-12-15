@@ -159,7 +159,8 @@ def get_response_message(mes_from,usr_id):
                 i=0
                 for row in cur:
                     i=i+1
-                    mesrow+= i + row + '\n'
+                    mesrow = i + ' ' + row + '\n'
+                    mesrow += mesrow
     return mesrow
                          
     # それ以外
