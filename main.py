@@ -144,7 +144,7 @@ def get_response_message(mes_from,usr_id):
         with get_connection() as conn:
             with conn.cursor() as cur:
                 sql = "UPDATE usr_data5 SET target_time = NULL WHERE usr_id = '{}'"
-                sql = sql.format(time,usr_id)
+                sql = sql.format(usr_id)
                 cur.execute(sql)
                 conn.commit()
         return mes
@@ -160,7 +160,7 @@ def get_response_message(mes_from,usr_id):
                 i=0
                 for (row,rate,) in rows:
                     i=i+1
-                    mes1='\n' + str(i)+' : '+row+' ' +rate
+                    mes1='\n' + str(i)+' : '+row+' ' + str(rate)
                     mes+=mes1
                 
         return mes
