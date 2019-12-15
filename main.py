@@ -13,6 +13,7 @@ from linebot.models import (
     FollowEvent, MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackTemplateAction, MessageTemplateAction, URITemplateAction,
 )
 
+import re
 
 import os
 
@@ -109,11 +110,11 @@ def get_response_message(mes_from,usr_id):
     if "おはよ" in mes_from and flag_num == 2:
         hel_time = datetime.datetime.now()
         mes = "おはようございます！\n 現在の時刻は{}時{}分{}秒です！"
-        mes = mes.format(hel_time.minute,hel_time.second,0)
+        mes = mes.format(hel_time.hour,hel_time.minute,hel_time.second)
 
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "UPDATE usr_data5 SET flag = 3 WHERE usr_id = '{}'"
+                sql = "UPDATE usr_data5 SET flag = 0 WHERE usr_id = '{}'"
                 sql = sql.format(usr_id)
                 cur.execute(sql)
                 conn.commit()
@@ -142,14 +143,30 @@ def get_response_message(mes_from,usr_id):
 
         with get_connection() as conn:
             with conn.cursor() as cur:
-                sql = "UPDATE usr_data5 SET target_time = '' WHERE usr_id = '{}'"
+                sql = "UPDATE usr_data5 SET target_time = NULL WHERE usr_id = '{}'"
                 sql = sql.format(time,usr_id)
                 cur.execute(sql)
                 conn.commit()
         return mes
-                
+
+    if mes_from == "ランキング":
+        mes="現在のランキングです"
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                sql = "SELECT usr_name FROM usr_data5 ORDER BY rate ASC"
+                cur.execute(sql)
+                conn.commit()
+                for row in cur:
+                    i++
+                    print(i,row)
+                         
     # それ以外
-    mes = "もう一度入力してみて\n 候補:「ねる」「リセット」"
+    if flag_num == 0:
+        mes = "もう一度入力してみて\n 候補:「ねる」「リセット」「ランキング」"
+    if flag_num == 1:
+        mes = "もう一度入力してみて\n 候補:「起きる時間」「リセット」「ランキング」"
+    if flag_num == 2:
+        mes = "もう一度入力してみて\n 候補:「おはよう」「リセット」「ランキング」"
     return mes
 
 
@@ -198,6 +215,35 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=response_message)
     )
+
+    # rating operate
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            sql = "SELECT tar_time FROM usr_data5 WHERE usr_id = '{}'"
+            sql = sql.format(usr_id)
+            cur.execute(sql)
+            (tar_time,) = cur.fetchone()
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            sql = "SELECT hel_time FROM usr_data5 WHERE usr_id = '{}'"
+            sql = sql.format(usr_id)
+            cur.execute(sql)
+            (hel_time,) = cur.fetchone()
+
+    regex = re.compile('\d+')
+    hel_timerow = regex.findall(hel_time)
+    tar_timerow = regex.findall(tar_time)
+        
+    raterow = int(hel_time) - int(tar_time)
+    rate = raterow[1] + raterow[2]*60
+    
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            sql = "UPDATE usr_data5 SET rate = {} WHERE usr_id = '{}'"
+            sql = sql.format(rate,usr_id)
+            cur.execute(sql)
+            conn.commit()
 
 '''
 @handler.add(ThingsEvent)
