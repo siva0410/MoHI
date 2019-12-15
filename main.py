@@ -222,7 +222,7 @@ def handle_message(event):
     # rating operate
     with get_connection() as conn:
         with conn.cursor() as cur:
-            sql = "SELECT tar_time FROM usr_data5 WHERE usr_id = '{}'"
+            sql = "SELECT target_time FROM usr_data5 WHERE usr_id = '{}'"
             sql = sql.format(usr_id)
             cur.execute(sql)
             (tar_time,) = cur.fetchone()
